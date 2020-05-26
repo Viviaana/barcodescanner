@@ -18,17 +18,15 @@ const PendingView = () => (
   </View>
 );
 
-export class UseCam extends Component {
+class UseCam extends Component {
   _onBarCodeRead = (e) => {
-    addBarcode(e.data)
-    Alert.alert("Barcode value is"+e.data ,"Barcode type is"+e.type);
-    console.log(this.props.barcode)
+    if (e.data != this.props.barcode){
+      console.log(e.data)
+      console.log(this.props.barcode)
+    this.props.addBarcode(e.data)
+    // console.log("All barcodes: " + this.props.history)
+    }
 }
-
-componentDidMount = () =>{
-  console.log(this.props.barcode)
-}
-
     
     render() {
         return (
@@ -59,9 +57,9 @@ componentDidMount = () =>{
                 if (status !== 'READY') return <PendingView />;
                 return (
                   <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
+                    {/* <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
                       <Text style={{ fontSize: 14 }}> SNAP </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                   </View>
                 );
               }}
@@ -78,9 +76,9 @@ componentDidMount = () =>{
       };
     }
     
-    const styles = StyleSheet.create({
+     const styles = StyleSheet.create({
       container: {
-        flex: 1,
+        flex: 2,
         flexDirection: 'column',
         backgroundColor: 'black',
       },
@@ -101,11 +99,14 @@ componentDidMount = () =>{
     });
     
 
+
+
 const mapStateToProps = state => {
-  return{
-  barcode: state.showBarcode.barcode,
+  return {
+    barcode: state.showBarcode.barcode,
+    history: state.addHistory.history,
   }
-};
+}
 
 export default connect(mapStateToProps, {
   addBarcode

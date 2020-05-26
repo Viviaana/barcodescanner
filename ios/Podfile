@@ -81,6 +81,8 @@ target 'practice' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
   target 'practiceTests' do
     inherit! :complete
     # Pods for testing
